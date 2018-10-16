@@ -21,7 +21,7 @@ public class PegawaiController {
 		return "home";
 	}
 	
-	@RequestMapping("/pegawai/view")
+	@RequestMapping("/pegawai")
 	private String viewPegawaiByNip(@RequestParam(value = "nip") String nip, Model model) {
 		PegawaiModel archive = pegawaiService.getPegawaiDetailByNip(nip);
 		
