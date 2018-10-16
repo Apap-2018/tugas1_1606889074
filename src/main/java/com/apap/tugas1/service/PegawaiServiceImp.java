@@ -18,4 +18,9 @@ public class PegawaiServiceImp implements PegawaiService{
 		return pegawaiDb.findByNip(nip);
 	}
 
+	@Override
+	public void addPegawai(PegawaiModel pegawai) {
+		pegawaiDb.save(pegawai);	
+	}
+
 }
