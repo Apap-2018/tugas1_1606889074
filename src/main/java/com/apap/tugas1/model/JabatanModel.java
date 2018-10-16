@@ -23,7 +23,6 @@ import javax.validation.constraints.Size;
 @Table(name = "jabatan")
 public class JabatanModel {
 	@Id
-	@Size(max = 20)
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	
@@ -38,7 +37,6 @@ public class JabatanModel {
 	private String deskripsi;
 	
 	@NotNull
-	@Size(max = 225)
 	@Column(name = "gaji_pokok", nullable = false)
 	private Double gajiPokok;
 	
