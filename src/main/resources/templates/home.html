@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>Home</title>
+	
+	
+</head>
+
+<body>
+	
+	
+	<div class="container-fluid">
+		<h2>Hello!</h2>
+		
+		<br>
+		<div class="row">
+			<div class="col-md-6">
+				<div class="card">
+					<div class="card-header">
+						Cari Pilot berdasarkan Nomor Lisensi
+					</div>
+					<form th:action="@{/pegawai/view}" method="GET">
+						<div class="card-body">
+							<label for="nip">Nomor lisensi:</label>
+							<input type="text" name="nip" class="form-control"/>
+							<p></p>
+							<button type="submit" class="btn btn-primary">Cari</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		<br>
+		
+
+</body>
+
+</html>
