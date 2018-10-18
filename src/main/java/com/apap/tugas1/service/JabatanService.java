@@ -10,4 +10,6 @@ public interface JabatanService {
 	List<JabatanModel> getAllJabatan();
 	
 	JabatanModel getJabatanById(long id);
+	
+	void deleteJabatan(JabatanModel jabatan);
 }

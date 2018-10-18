@@ -19,5 +19,10 @@
 		<button type = "submit" class = "btn btn-primary"> Ubah Jabatan</button>
 	</form>
 	
+	<form th:action="@{/jabatan/hapus}" th:object="${jabatan}" method="POST">
+		<input type="hidden" th:field="${jabatan.id}" />
+		<button class="btn btn-primary" type="submit"> Hapus Jabatan</button>
+	</form>
+	
 </body>
 </html>

@@ -25,7 +25,7 @@ public class JabatanController {
 
 	
 	@RequestMapping(value = "/jabatan/tambah", method = RequestMethod.POST)
-	private String addPilotSubmit(@ModelAttribute JabatanModel jabatan, Model model) {
+	private String addJabatanSubmit(@ModelAttribute JabatanModel jabatan, Model model) {
 		jabatanService.addJabatan(jabatan);
 		return "add";
 	}
@@ -48,7 +48,7 @@ public class JabatanController {
 	}
 	
 	@RequestMapping(value = "/jabatan/ubah", method = RequestMethod.POST)
-	private String updatePilotSubmit(@ModelAttribute JabatanModel jabatan, Model model) {
+	private String updateJabatanSubmit(@ModelAttribute JabatanModel jabatan, Model model) {
 		JabatanModel archive = jabatanService.getJabatanById(jabatan.getId());
 		
 		archive.setDeskripsi(jabatan.getDeskripsi());
@@ -60,5 +60,15 @@ public class JabatanController {
 		model.addAttribute("title", "Ubah Jabatan");
 		return "update";
 		
+	}
+	
+	@RequestMapping(value="/jabatan/hapus", method= RequestMethod.POST)
+	private String deleteJabatan(@ModelAttribute JabatanModel jabatan, Model model) {
+		JabatanModel archive = jabatanService.getJabatanById(jabatan.getId());
+		
+		jabatanService.deleteJabatan(archive);
+		
+		model.addAttribute("title", "Hapus Jabatan");
+		return "delete";
 	}
 }
