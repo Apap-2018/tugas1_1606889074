@@ -24,4 +24,9 @@ public class InstansiServiceImp implements InstansiService{
 		instansiDb.save(instansi);
 	}
 
+	@Override
+	public InstansiModel getInstansiDetailById(long id) {
+		return instansiDb.findById(id);
+	}
+
 }
