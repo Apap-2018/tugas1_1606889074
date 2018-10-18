@@ -13,6 +13,7 @@
 	<h3 th:text="'Nama: ' + ${jabatan.nama}"></h3>
 	<h3 th:text="'Deskripsi: ' + ${jabatan.deskripsi}"></h3>
 	<h3 th:text="'Gaji Pokok: Rp' + ${jabatan.gajiPokok}"></h3>
+	<h3 th:text="'Jumlah Pegawai Jabatan: ' + ${jumlahPegawai}"></h3>
 	
 	<form th:action="@{/jabatan/ubah}" name=getJabatan method = "GET">
 		<input type="hidden" th:value="${jabatan.id}" name="idJabatan" />

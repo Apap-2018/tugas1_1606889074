@@ -36,6 +36,7 @@ public class JabatanController {
 	private String viewJabatanById(@RequestParam(value = "idJabatan") long id, Model model) {
 		JabatanModel archive = jabatanService.getJabatanById(id);
 		model.addAttribute("jabatan", archive);
+		model.addAttribute("jumlahPegawai", archive.getPegawaiList().size());
 		model.addAttribute("title", "Detail Jabatan");
 		return "view-jabatan";
 	}
