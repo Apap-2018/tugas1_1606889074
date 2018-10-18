@@ -19,4 +19,9 @@ public class InstansiServiceImp implements InstansiService{
 		return instansiDb.findAll();
 	}
 
+	@Override
+	public void addInstansi(InstansiModel instansi) {
+		instansiDb.save(instansi);
+	}
+
 }

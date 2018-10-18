@@ -58,7 +58,6 @@ public class PegawaiController {
 
 	@RequestMapping(value = "/pegawai/tambah", method = RequestMethod.GET)
 	private String add(Model model) {
-		
 		model.addAttribute("provinsiList", provinsiService.getAllProvinsi());
 		model.addAttribute("instansiList", instansiService.getAllInstansi());
 		model.addAttribute("jabatanList", jabatanService.getAllJabatan());
@@ -69,6 +68,7 @@ public class PegawaiController {
 	
 	@RequestMapping(value = "/pegawai/tambah", method = RequestMethod.POST)
 	private String addPilotSubmit(@ModelAttribute PegawaiModel pegawai, Model model) {
+		
 		pegawaiService.addPegawai(pegawai);
 		return "add";
 	}

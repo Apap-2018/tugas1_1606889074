@@ -42,14 +42,14 @@
 					<form th:action="@{/jabatan/view}" method="GET">
 						<div class="card-body">
 							<label for="nip">Pilih Jabatan:</label>
-								<form th:action="@{/jabatan/view}" method = "GET">
+								<a th:action="@{/jabatan/view}" method = "GET">
 									<select name = "idJabatan">
 										<option th:each = "jabatan : ${jabatanList}"
 												th:value = "${jabatan.id}"
 												th:text = "${jabatan.nama}"></option>
 									</select><br><br>
 									<button type = "cari" class = "btn btn-primary">Submit</button>
-								</form>
+								</a>
 							<p></p>
 						</div>
 					</form>

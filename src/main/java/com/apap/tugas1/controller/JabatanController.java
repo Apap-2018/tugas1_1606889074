@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -35,5 +36,29 @@ public class JabatanController {
 		model.addAttribute("jabatan", archive);
 		model.addAttribute("title", "Detail Jabatan");
 		return "view-jabatan";
+	}
+	
+	@RequestMapping(value = "/jabatan/ubah", method = RequestMethod.GET)
+	private String update(@RequestParam(value ="idJabatan") long id, Model model) {
+		JabatanModel archive = jabatanService.getJabatanById(id);
+		
+		model.addAttribute("jabatan", archive);
+		model.addAttribute("title", "Ubah Jabatan");
+		return "updateJabatan";
+	}
+	
+	@RequestMapping(value = "/jabatan/ubah", method = RequestMethod.POST)
+	private String updatePilotSubmit(@ModelAttribute JabatanModel jabatan, Model model) {
+		JabatanModel archive = jabatanService.getJabatanById(jabatan.getId());
+		
+		archive.setDeskripsi(jabatan.getDeskripsi());
+		archive.setGajiPokok(jabatan.getGajiPokok());
+		archive.setNama(jabatan.getNama());
+		
+		jabatanService.addJabatan(archive);
+		
+		model.addAttribute("title", "Ubah Jabatan");
+		return "update";
+		
 	}
 }
