@@ -136,6 +136,21 @@ public class PegawaiModel implements Serializable{
 		this.jabatanList = jabatanList;
 	}
 	
+	public double getCalculatedGaji() {
+		//menghitung gaji pokok
+		double gaji=0;
+		for(JabatanModel jabatan : this.getJabatanList()) {
+			double container = jabatan.getGajiPokok();
+			if(gaji<container) {
+				gaji = container;
+			}
+		}
+		double tunjangan = this.getInstansi().getProvinsi().getPresentaseTunjangan();
+		gaji = gaji + (gaji*tunjangan/100);
+		
+		return gaji;
+	}
+	
 	public int getUmur() {
 		LocalDate dat = this.getTanggalLahir().toLocalDate();
 		LocalDate now = LocalDate.now();

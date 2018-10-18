@@ -47,19 +47,8 @@ public class PegawaiController {
 	private String viewPegawaiByNip(@RequestParam(value = "nip") String nip, Model model) {
 		PegawaiModel archive = pegawaiService.getPegawaiDetailByNip(nip);
 		
-		//menghitung gaji pokok
-		double gaji=0;
-		for(JabatanModel jabatan : archive.getJabatanList()) {
-			double container = jabatan.getGajiPokok();
-			if(gaji<container) {
-				gaji = container;
-			}
-		}
-		double tunjangan = archive.getInstansi().getProvinsi().getPresentaseTunjangan();
-		gaji = gaji + (gaji*tunjangan/100);
-		
 		model.addAttribute("pegawai", archive);
-		model.addAttribute("gaji", gaji);
+		model.addAttribute("gaji", archive.getCalculatedGaji());
 		return "view-pegawai";
 	}
 
@@ -107,6 +96,8 @@ public class PegawaiController {
 
 		model.addAttribute("pegawaiTermuda", pegawaiTermuda);
 		model.addAttribute("pegawaiTertua", pegawaiTertua);
+		model.addAttribute("gajiTermuda", pegawaiTermuda.getCalculatedGaji());
+		model.addAttribute("gajiTertua", pegawaiTertua.getCalculatedGaji());
 		return "view-pegawai-termuda-tertua";
 	}
 }
