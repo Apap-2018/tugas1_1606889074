@@ -67,9 +67,11 @@
 							<label for="nip">Pilih Instansi:</label>
 								<a th:action="@{/pegawai/termuda-tertua}" method = "GET">
 									<select name = "idInstansi">
-										<option th:each = "instansi : ${instansiList}"
-												th:value = "${instansi.id}"
-												th:text = "${instansi.nama}"></option>
+										<div th:each = "provinsi : ${provinsiList}">
+											<option th:each = "instansi : ${provinsi.instansiList}"
+													th:value = "${instansi.id}"
+													th:text = "${instansi.nama} + ' - ' + ${provinsi.nama}"></option>
+										</div>
 									</select><br><br>
 									<button type = "cari" class = "btn btn-primary">Submit</button>
 								</a>

@@ -19,7 +19,7 @@
 	<h3 th:text="'Tanggal Lahir: ' + ${pegawaiTermuda.tanggalLahir}"></h3>
 	<h3 th:text="'Tahun Masuk: ' + ${pegawaiTermuda.tahunMasuk}"></h3>
 	
-	<h3 th:text="'Nama Instansi: ' + ${pegawaiTermuda.instansi.nama}"></h3>	
+	<h3 th:text="'Nama Instansi: ' + ${pegawaiTermuda.instansi.nama} + ' - ' + ${pegawaiTermuda.instansi.provinsi.nama}"></h3>	
 	
 	<h3 th:each="jabatan : ${pegawaiTermuda.jabatanList}">
 		<h3 th:text="${jabatan.nama}"></h3>
@@ -37,7 +37,7 @@
 	<h3 th:text="'Tanggal Lahir: ' + ${pegawaiTertua.tanggalLahir}"></h3>
 	<h3 th:text="'Tahun Masuk: ' + ${pegawaiTertua.tahunMasuk}"></h3>
 	
-	<h3 th:text="'Nama Instansi: ' + ${pegawaiTertua.instansi.nama}"></h3>	
+	<h3 th:text="'Nama Instansi: ' + ${pegawaiTertua.instansi.nama} + ' - ' + ${pegawaiTertua.instansi.provinsi.nama}"></h3>	
 	
 	<h3 th:each="jabatan : ${pegawaiTertua.jabatanList}">
 		<h3 th:text="${jabatan.nama}"></h3>

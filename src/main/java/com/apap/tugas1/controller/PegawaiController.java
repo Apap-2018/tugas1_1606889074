@@ -39,7 +39,8 @@ public class PegawaiController {
 	private String home(Model model) {
 		model.addAttribute("title", "");
 		model.addAttribute("jabatanList", jabatanService.getAllJabatan());
-		model.addAttribute("instansiList", instansiService.getAllInstansi());
+		
+		model.addAttribute("provinsiList", provinsiService.getAllProvinsi());
 		return "home";
 	}
 	
