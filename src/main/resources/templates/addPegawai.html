@@ -26,27 +26,34 @@
 		Tahun Masuk: <br>
 		<input type="number" name="tahunMasuk" />
 		<br>
-		Provinsi: <br>
+		<!--  Provinsi: <br>
 		<select name = "provinsi">
 			<option th:each = "provinsi : ${provinsiList}"
 					th:value = "${provinsi.id}"
 					th:text = "${provinsi.nama}"></option>
 		</select>
-		<br>
+		<br>-->
 		Nama Instansi: <br>
-		<select name = "instansi">
+		<!--  <select name = "instansi">
 			<option th:each = "instansi : ${instansiList}"
 					th:value = "${instansi}"
 					th:text = "${instansi.nama}"></option>
 		</select>
-		<br>
-		Jabatan: <br>
+		<br>-->
+		<select name="instansi">
+			<div th:each = "provinsi : ${provinsiList}">
+				<option th:each = "instansiProvinsi : ${provinsi.instansiList}"
+						th:value = "${instansiProvinsi.id}"
+						th:text = "${instansiProvinsi.nama} + ' - ' + ${provinsi.nama}"></option>
+			</div>
+		</select><br>
+		<!--  Jabatan: <br>
 		<select name = "jabatan">
 			<option th:each = "jabatan : ${jabatanList}"
 					th:value = "${jabatan.id}"
 					th:text = "${jabatan.nama}"></option>
 		</select>
-		<br><br>
+		<br><br>-->
 		<button type="submit">Submit</button>
 	</form>
 </body>

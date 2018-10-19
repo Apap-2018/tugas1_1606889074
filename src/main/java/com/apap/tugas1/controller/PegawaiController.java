@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.apap.tugas1.model.InstansiModel;
 import com.apap.tugas1.model.JabatanModel;
 import com.apap.tugas1.model.PegawaiModel;
+import com.apap.tugas1.model.ProvinsiModel;
 import com.apap.tugas1.service.InstansiService;
 import com.apap.tugas1.service.JabatanService;
 import com.apap.tugas1.service.PegawaiService;
@@ -59,14 +60,51 @@ public class PegawaiController {
 		model.addAttribute("instansiList", instansiService.getAllInstansi());
 		model.addAttribute("jabatanList", jabatanService.getAllJabatan());
 		model.addAttribute("pegawai", new PegawaiModel());
+		
 		return "addPegawai";
 	}
 
 	
 	@RequestMapping(value = "/pegawai/tambah", method = RequestMethod.POST)
 	private String addPilotSubmit(@ModelAttribute PegawaiModel pegawai, Model model) {
+		String nip = "";
+		//kode provinsi
+		ProvinsiModel provinsi = pegawai.getInstansi().getProvinsi();
+		nip+=provinsi.getId();
+		
+		//urutan instansi di provinsi tsb
+		int urutanInstansi = provinsi.getInstansiList().indexOf(pegawai.getInstansi()) + 1;
+		
+		if(urutanInstansi < 10) { nip+="0"+urutanInstansi;}
+		else { nip+=urutanInstansi; }
+		
+		//tanggalLahir pegawai
+		//format dateLama = "yyyy-mm-dd"
+		String dateLama = pegawai.getTanggalLahir().toString();
+		String ddmmyy = dateLama.substring(8) + dateLama.substring(5, 7) + dateLama.substring(2, 4);
+		nip+=ddmmyy;
+		
+		//tahunMasuk
+		nip+=pegawai.getTahunMasuk();
+		
+		//urutanMasuk
+		InstansiModel instansi = pegawai.getInstansi();
+		int jumlahNipAwalSama=1;
+		for(PegawaiModel pegawaiCek : instansi.getPegawaiInstansi()) {
+			if(nip.equals(pegawaiCek.getNip().substring(0, 14))) {
+				jumlahNipAwalSama+=1;
+			}
+		}
+		
+		if(jumlahNipAwalSama < 10) {nip+="0"+jumlahNipAwalSama;}
+		else {nip+=jumlahNipAwalSama;}
+		
+		//addNiptoPegawai
+		pegawai.setNip(nip);
 		
 		pegawaiService.addPegawai(pegawai);
+		
+		model.addAttribute("pegawai", pegawai);
 		return "add";
 	}
 	
