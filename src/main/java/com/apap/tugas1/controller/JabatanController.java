@@ -71,8 +71,14 @@ public class JabatanController {
 	private String deleteJabatan(@ModelAttribute JabatanModel jabatan, Model model) {
 		JabatanModel archive = jabatanService.getJabatanById(jabatan.getId());
 		
+		if(archive.getPegawaiList()!=null) {
+			model.addAttribute("jabatan", archive);
+			return "delete-fail";
+		}
+		
 		jabatanService.deleteJabatan(archive);
 		
+		model.addAttribute("jabatan", archive);
 		model.addAttribute("title", "Hapus Jabatan");
 		return "delete";
 	}

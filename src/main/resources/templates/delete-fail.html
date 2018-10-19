@@ -9,7 +9,7 @@
 
 <body>
 	<nav th:replace="fragments/fragment :: navbar"></nav>
-	<h3>Data berhasil dihapus</h3>
-	<h3 th:text="${jabatan.nama} + ' berhasil dihapus'"></h3>
+	<h3>Data gagal dihapus</h3>
+	<h3 th:text="${jabatan.nama} + ' gagal dihapus karena ada Pegawai yang menempati'"></h3>
 </body>
 </html>
