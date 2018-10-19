@@ -179,7 +179,8 @@ public class PegawaiController {
 		pegawaiService.addPegawai(archive);
 		
 		model.addAttribute("title", "Ubah Jabatan");
-		return "update";
+		model.addAttribute("pegawai", archive);
+		return "update-success-pegawai";
 		
 	}
 	

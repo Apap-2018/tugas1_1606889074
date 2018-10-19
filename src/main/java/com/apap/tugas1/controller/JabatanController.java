@@ -29,7 +29,8 @@ public class JabatanController {
 	@RequestMapping(value = "/jabatan/tambah", method = RequestMethod.POST)
 	private String addJabatanSubmit(@ModelAttribute JabatanModel jabatan, Model model) {
 		jabatanService.addJabatan(jabatan);
-		return "add";
+		model.addAttribute("jabatan", jabatan);
+		return "add-success-jabatan";
 	}
 	
 	@RequestMapping("/jabatan/view")
@@ -61,7 +62,8 @@ public class JabatanController {
 		jabatanService.addJabatan(archive);
 		
 		model.addAttribute("title", "Ubah Jabatan");
-		return "update";
+		model.addAttribute("jabatan", archive);
+		return "update-success-jabatan";
 		
 	}
 	

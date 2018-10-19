@@ -18,8 +18,9 @@
 	<h3 th:text="'Tanggal Lahir: ' + ${pegawai.tanggalLahir}"></h3>
 	<h3 th:text="'Tahun Masuk: ' + ${pegawai.tahunMasuk}"></h3>
 	
-	<h3 th:text="'Nama Instansi: ' + ${pegawai.instansi.nama}"></h3>	
+	<h3 th:text="'Nama Instansi: ' + ${pegawai.instansi.nama} + ' - ' + ${pegawai.instansi.provinsi.nama}"></h3>	
 	
+	<h3 th:text="'Jabatan: '"></h3>
 	<h3 th:each="jabatan : ${pegawai.jabatanList}">
 		<h3 th:text="${jabatan.nama}"></h3>
 	</h3>
