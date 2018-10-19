@@ -56,6 +56,7 @@
 				</div>
 			</div>
 		</div>
+		<br>
 		<div class="row">
 			<div class="col-md-6">
 				<div class="card">
@@ -66,13 +67,11 @@
 						<div class="card-body">
 							<label for="nip">Pilih Instansi:</label>
 								<a th:action="@{/pegawai/termuda-tertua}" method = "GET">
-									<select name = "idInstansi">
-										<div th:each = "provinsi : ${provinsiList}">
-											<option th:each = "instansi : ${provinsi.instansiList}"
-													th:value = "${instansi.id}"
-													th:text = "${instansi.nama} + ' - ' + ${provinsi.nama}"></option>
-										</div>
-									</select><br><br>
+									<select name="idInstansi">
+										<option th:each = "instansiProvinsi : ${instansiList}"
+												th:value = "${instansiProvinsi.id}"
+												th:text = "${instansiProvinsi.nama} + ' - ' + ${instansiProvinsi.provinsi.nama}"></option>
+									</select><br>
 									<button type = "cari" class = "btn btn-primary">Submit</button>
 								</a>
 							<p></p>

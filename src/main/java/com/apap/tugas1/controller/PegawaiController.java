@@ -2,6 +2,7 @@ package com.apap.tugas1.controller;
 
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,7 +42,7 @@ public class PegawaiController {
 		model.addAttribute("title", "");
 		model.addAttribute("jabatanList", jabatanService.getAllJabatan());
 		
-		model.addAttribute("provinsiList", provinsiService.getAllProvinsi());
+		model.addAttribute("instansiList", instansiService.getAllInstansi());
 		return "home";
 	}
 	
@@ -59,7 +60,31 @@ public class PegawaiController {
 		model.addAttribute("provinsiList", provinsiService.getAllProvinsi());
 		model.addAttribute("instansiList", instansiService.getAllInstansi());
 		model.addAttribute("jabatanList", jabatanService.getAllJabatan());
-		model.addAttribute("pegawai", new PegawaiModel());
+		
+		PegawaiModel pegawai = new PegawaiModel();
+		if (pegawai.getJabatanList()==null) {
+			pegawai.setJabatanList(new ArrayList<JabatanModel>());
+		}
+		pegawai.getJabatanList().add(new JabatanModel());
+		
+		model.addAttribute("pegawai", pegawai);
+		
+		return "addPegawai";
+	}
+	
+
+	@RequestMapping(value="/pegawai/tambah", params={"addRow"}, method = RequestMethod.POST)
+	private String addRowJabatanPegawai(@ModelAttribute PegawaiModel pegawai, Model model) {
+		model.addAttribute("provinsiList", provinsiService.getAllProvinsi());
+		model.addAttribute("instansiList", instansiService.getAllInstansi());
+		model.addAttribute("jabatanList", jabatanService.getAllJabatan());
+		
+		if (pegawai.getJabatanList()==null) {
+			pegawai.setJabatanList(new ArrayList<JabatanModel>());
+		}
+		pegawai.getJabatanList().add(new JabatanModel());
+		
+		model.addAttribute("pegawai", pegawai);
 		
 		return "addPegawai";
 	}

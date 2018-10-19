@@ -34,26 +34,21 @@
 		</select>
 		<br>-->
 		Nama Instansi: <br>
-		<!--  <select name = "instansi">
-			<option th:each = "instansi : ${instansiList}"
-					th:value = "${instansi}"
-					th:text = "${instansi.nama}"></option>
-		</select>
-		<br>-->
 		<select name="instansi">
-			<div th:each = "provinsi : ${provinsiList}">
-				<option th:each = "instansiProvinsi : ${provinsi.instansiList}"
-						th:value = "${instansiProvinsi.id}"
-						th:text = "${instansiProvinsi.nama} + ' - ' + ${provinsi.nama}"></option>
-			</div>
+			<option th:each = "instansiProvinsi : ${instansiList}"
+					th:value = "${instansiProvinsi.id}"
+					th:text = "${instansiProvinsi.nama} + ' - ' + ${instansiProvinsi.provinsi.nama}"></option>
 		</select><br>
-		<!--  Jabatan: <br>
-		<select name = "jabatan">
+		Jabatan: <br>
+		<div th:each = "j : *{jabatanList}">
+		<select name = "jabatanList">
 			<option th:each = "jabatan : ${jabatanList}"
 					th:value = "${jabatan.id}"
 					th:text = "${jabatan.nama}"></option>
 		</select>
-		<br><br>-->
+		<button type="submit" name="addRow">Add Row</button>
+		</div>
+		<br><br>
 		<button type="submit">Submit</button>
 	</form>
 </body>
