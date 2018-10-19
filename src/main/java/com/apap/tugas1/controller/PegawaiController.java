@@ -4,12 +4,14 @@ import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -106,41 +108,9 @@ public class PegawaiController {
 
 	
 	@RequestMapping(value = "/pegawai/tambah", method = RequestMethod.POST)
-	private String addPilotSubmit(@ModelAttribute PegawaiModel pegawai, Model model) {
-		String nip = "";
-		//kode provinsi
-		ProvinsiModel provinsi = pegawai.getInstansi().getProvinsi();
-		nip+=provinsi.getId();
-		
-		//urutan instansi di provinsi tsb
-		int urutanInstansi = provinsi.getInstansiList().indexOf(pegawai.getInstansi()) + 1;
-		
-		if(urutanInstansi < 10) { nip+="0"+urutanInstansi;}
-		else { nip+=urutanInstansi; }
-		
-		//tanggalLahir pegawai
-		//format dateLama = "yyyy-mm-dd"
-		String dateLama = pegawai.getTanggalLahir().toString();
-		String ddmmyy = dateLama.substring(8) + dateLama.substring(5, 7) + dateLama.substring(2, 4);
-		nip+=ddmmyy;
-		
-		//tahunMasuk
-		nip+=pegawai.getTahunMasuk();
-		
-		//urutanMasuk
-		InstansiModel instansi = pegawai.getInstansi();
-		int jumlahNipAwalSama=1;
-		for(PegawaiModel pegawaiCek : instansi.getPegawaiInstansi()) {
-			if(nip.equals(pegawaiCek.getNip().substring(0, 14))) {
-				jumlahNipAwalSama+=1;
-			}
-		}
-		
-		if(jumlahNipAwalSama < 10) {nip+="0"+jumlahNipAwalSama;}
-		else {nip+=jumlahNipAwalSama;}
-		
+	private String addPilotSubmit(@ModelAttribute PegawaiModel pegawai, Model model) {		
 		//addNiptoPegawai
-		pegawai.setNip(nip);
+		pegawai.setNip(pegawaiService.getNip(pegawai));
 		
 		pegawaiService.addPegawai(pegawai);
 		
@@ -204,6 +174,7 @@ public class PegawaiController {
 		archive.setTahunMasuk(pegawai.getTahunMasuk());
 		archive.setTanggalLahir(pegawai.getTanggalLahir());
 		archive.setTempatLahir(pegawai.getTempatLahir());
+		archive.setNip(pegawaiService.getNip(archive));
 		
 		pegawaiService.addPegawai(archive);
 		
