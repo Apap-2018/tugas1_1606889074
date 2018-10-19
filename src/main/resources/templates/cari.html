@@ -10,8 +10,7 @@
 <body>
 	<nav th:replace="fragments/fragment :: navbar"></nav>
 	<div id="Content" class="container-full-bg">
-	    <div class="container vertical-center" style="padding-top: 32px;">
-	        	<h2 th:text="'Cari Pegawai'"></h2>
+	        <h2 th:text="'Cari Pegawai'"></h2>
 			<form th:action="@{/pegawai/cari}" method="GET">
 				<table class="table">
 					<tbody>
@@ -58,40 +57,39 @@
 			<hr>
 	    </div>
 	         <script type="text/javascript">
-		$(document).ready(function(){
-			console.log("hey")
-			$('#provinsi').change(function() {
-				valueProv = $(this).val();
-				console.log(valueProv)
-				$.ajax({
-					type: "GET",
-					url: "http://localhost:8080/pegawai/tambah/instansi?provinsi=",
-					data: {
-						'provinsiId' : valueProv
-					},
-					dataType: 'json',
-					success: function(data) {
-						console.log(data);
-						getIns = '';
-						var size = data.length;
-					
-						for (var i = 0; i<size; i++) {
-							getIns+='<option value="'+data[i].id+'">'+data[i].nama+'</option>';
-							console.log(data[i]);
-							console.log(data[i].nama)
-						}
-						console.log(getIns);
-						$('#instansi').show();
-						$('#instansi').append(getIns);
-						$('#instansiAsli').hide();
-					},
-					error: function(rs,e) {
-						alert(rs.responseText)
-					}
-				})
-			})
-		});
-	</script>
-	</div>
+				$(document).ready(function(){
+					console.log("hey")
+					$('#provinsi').change(function() {
+						valueProv = $(this).val();
+						console.log(valueProv)
+						$.ajax({
+							type: "GET",
+							url: "http://localhost:8080/pegawai/tambah/instansi?provinsi=",
+							data: {
+								'provinsiId' : valueProv
+							},
+							dataType: 'json',
+							success: function(data) {
+								console.log(data);
+								getIns = '';
+								var size = data.length;
+							
+								for (var i = 0; i<size; i++) {
+									getIns+='<option value="'+data[i].id+'">'+data[i].nama+'</option>';
+									console.log(data[i]);
+									console.log(data[i].nama)
+								}
+								console.log(getIns);
+								$('#instansi').show();
+								$('#instansi').append(getIns);
+								$('#instansiAsli').hide();
+							},
+							error: function(rs,e) {
+								alert(rs.responseText)
+							}
+						})
+					})
+				});
+			</script>
 </body>
 </html>
