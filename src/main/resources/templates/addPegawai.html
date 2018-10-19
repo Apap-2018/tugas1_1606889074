@@ -15,16 +15,16 @@
 	<h3>Tambah Pegawai</h3>
 	<form th:action="@{/pegawai/tambah}" th:object="${pegawai}" method="POST">
 		Nama: <br>
-		<input type="text" name="nama" />
+		<input type="text" name="nama" th:value="${pegawai.nama}"/>
 		<br>
 		Tempat Lahir: <br>
-		<input type="text" name="tempatLahir" />
+		<input type="text" name="tempatLahir" th:value="${pegawai.tempatLahir}"/>
 		<br>
 		Tanggal Lahir: <br>
-		<input type="date" name="tanggalLahir" />
+		<input type="date" name="tanggalLahir" th:value="${pegawai.tanggalLahir}"/>
 		<br>
 		Tahun Masuk: <br>
-		<input type="number" name="tahunMasuk" />
+		<input type="number" name="tahunMasuk" th:value="${pegawai.tahunMasuk}"/>
 		<br>
 		<!--  Provinsi: <br>
 		<select name = "provinsi">
@@ -34,7 +34,7 @@
 		</select>
 		<br>-->
 		Nama Instansi: <br>
-		<select name="instansi">
+		<select name="instansi" th:value="${pegawai.instansi}">
 			<option th:each = "instansiProvinsi : ${instansiList}"
 					th:value = "${instansiProvinsi.id}"
 					th:text = "${instansiProvinsi.nama} + ' - ' + ${instansiProvinsi.provinsi.nama}"></option>
@@ -46,9 +46,10 @@
 					th:value = "${jabatan.id}"
 					th:text = "${jabatan.nama}"></option>
 		</select>
+		<br>
 		<button type="submit" name="addRow">Add Row</button>
 		</div>
-		<br><br>
+		<br>
 		<button type="submit">Submit</button>
 	</form>
 </body>
