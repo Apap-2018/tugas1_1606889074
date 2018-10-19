@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>Update Jabatan</title>
+	<object th:include="fragments/fragment :: css" th:remove="tag"></object>
+	<object th:include="fragments/fragment :: js" th:remove="tag"></object>	
+</head>
+
+<body>
+	
+	<nav th:replace="fragments/fragment :: navbar"></nav>
+	<h2>Hello!</h2>
+	
+	<h3>Update Pegawai</h3>
+	<form th:action="@{/pegawai/ubah}" th:object="${pegawai}" method="POST">
+		<input type="hidden" th:field="*{nip}"/>
+		Nama: <br>
+		<input type="text" name="nama" th:value="${pegawai.nama}"/>
+		<br>
+		Tempat Lahir: <br>
+		<input type="text" name="tempatLahir" th:value="${pegawai.tempatLahir}"/>
+		<br>
+		Tanggal Lahir: <br>
+		<input type="date" name="tanggalLahir" th:value="${pegawai.tanggalLahir}"/>
+		<br>
+		Tahun Masuk: <br>
+		<input type="number" name="tahunMasuk" th:value="${pegawai.tahunMasuk}"/>
+		<br>
+		<!--  Provinsi: <br>
+		<select name = "provinsi">
+			<option th:each = "provinsi : ${provinsiList}"
+					th:value = "${provinsi.id}"
+					th:text = "${provinsi.nama}"></option>
+		</select>
+		<br>-->
+		Nama Instansi: <br>
+		<select name="instansi" th:value="${pegawai.instansi}">
+			<option th:each = "instansiProvinsi : ${instansiList}"
+					th:value = "${instansiProvinsi.id}"
+					th:text = "${instansiProvinsi.nama} + ' - ' + ${instansiProvinsi.provinsi.nama}"></option>
+		</select><br>
+		Jabatan: <br>
+		<div th:each = "j,rowStat : *{jabatanList}">
+			<select name = "jabatanList">
+				<option th:each = "jabatan : ${jabatanList}"
+						th:value = "${jabatan.id}"
+						th:field="*{jabatanList[__${rowStat.index}__].id}"
+						th:text = "${jabatan.nama}"></option>
+			</select>
+			<button type="submit" name="removeRow" th:value="${rowStat.index}">Remove Row</button>
+			<br><br>
+		</div>
+		<button type="submit" name="addRow">Add Row</button>
+		<br>
+		<button type="submit">Submit</button>
+	</form>
+</body>
+
+</html>

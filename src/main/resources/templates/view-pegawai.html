@@ -23,8 +23,12 @@
 	<h3 th:each="jabatan : ${pegawai.jabatanList}">
 		<h3 th:text="${jabatan.nama}"></h3>
 	</h3>
-	
 	<h3 th:text="'Gaji : Rp'+${gaji}"></h3>
+	<br>
+	<form th:action="@{/pegawai/ubah}" name=getPegawai method = "GET">
+		<input type="hidden" th:value="${pegawai.nip}" name="nip" />
+		<button type = "submit" class = "btn btn-primary"> Ubah Pegawai</button>
+	</form>
 		
 </body>
 </html>
