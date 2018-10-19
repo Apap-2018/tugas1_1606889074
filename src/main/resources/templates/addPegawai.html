@@ -40,15 +40,17 @@
 					th:text = "${instansiProvinsi.nama} + ' - ' + ${instansiProvinsi.provinsi.nama}"></option>
 		</select><br>
 		Jabatan: <br>
-		<div th:each = "j : *{jabatanList}">
-		<select name = "jabatanList">
-			<option th:each = "jabatan : ${jabatanList}"
-					th:value = "${jabatan.id}"
-					th:text = "${jabatan.nama}"></option>
-		</select>
-		<br>
-		<button type="submit" name="addRow">Add Row</button>
+		<div th:each = "j,rowStat : *{jabatanList}">
+			<select name = "jabatanList">
+				<option th:each = "jabatan : ${jabatanList}"
+						th:value = "${jabatan.id}"
+						th:field="*{jabatanList[__${rowStat.index}__].id}"
+						th:text = "${jabatan.nama}"></option>
+			</select>
+			<button type="submit" name="removeRow" th:value="${rowStat.index}">Remove Row</button>
+			<br><br>
 		</div>
+		<button type="submit" name="addRow">Add Row</button>
 		<br>
 		<button type="submit">Submit</button>
 	</form>

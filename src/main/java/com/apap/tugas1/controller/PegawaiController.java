@@ -5,9 +5,11 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -73,6 +75,19 @@ public class PegawaiController {
 	}
 	
 
+	@RequestMapping(value="/pegawai/tambah", params={"removeRow"}, method = RequestMethod.POST)
+	private String removeRowJabatanPegawai(@ModelAttribute PegawaiModel pegawai, final BindingResult bindingResult, final HttpServletRequest req, Model model) {
+		model.addAttribute("provinsiList", provinsiService.getAllProvinsi());
+		model.addAttribute("instansiList", instansiService.getAllInstansi());
+		model.addAttribute("jabatanList", jabatanService.getAllJabatan());
+		
+		final Integer rowId = Integer.valueOf(req.getParameter("removeRow"));
+		pegawai.getJabatanList().remove(rowId.intValue());
+		model.addAttribute("pegawai", pegawai);
+		
+		return "addPegawai";
+	}
+	
 	@RequestMapping(value="/pegawai/tambah", params={"addRow"}, method = RequestMethod.POST)
 	private String addRowJabatanPegawai(@ModelAttribute PegawaiModel pegawai, Model model) {
 		model.addAttribute("provinsiList", provinsiService.getAllProvinsi());
