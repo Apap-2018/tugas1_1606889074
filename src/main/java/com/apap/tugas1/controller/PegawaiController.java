@@ -212,4 +212,12 @@ public class PegawaiController {
 		return "updatePegawai";
 	}
 	
+	@RequestMapping("/pegawai/cari")
+	private String cari(Model model) {
+		model.addAttribute("provinsiList", provinsiService.getAllProvinsi());
+		model.addAttribute("instansiList", instansiService.getAllInstansi());
+		model.addAttribute("jabatanList", jabatanService.getAllJabatan());
+		return "cari";
+	}
+	
 }
