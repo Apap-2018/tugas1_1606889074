@@ -33,12 +33,33 @@
 					th:text = "${provinsi.nama}"></option>
 		</select>
 		<br>-->
-		Nama Instansi: <br>
+		Provinsi:<br> 
+		<select
+			th:value="${provinsiList}" name="provinsi" id="provinsi" required="required">
+			<option disabled="disabled" selected="selected" >Pilih Provinsi</option>
+			<option th:each="provinsi : ${provinsiList}"
+				th:value="${provinsi.id}"
+				th:text="${provinsi.nama}">
+			</option>
+		</select>
+		<br>
+
+		Instansi:<br> 
+		<select th:value="${instansiList}" name="instansi"
+			id="instansi" required="required">
+			<option disabled="disabled" selected="selected" >Pilih Provinsi</option>
+			<option th:each="instansi : ${instansiList}"
+				th:value="${instansi.id}"
+				th:text="${instansi.nama} + ' - ' + ${instansi.provinsi.nama}">Pilih Instansi</option>
+		</select>
+		<br>
+		
+		<!--  Nama Instansi: <br>
 		<select name="instansi" th:value="${pegawai.instansi}">
 			<option th:each = "instansiProvinsi : ${instansiList}"
 					th:value = "${instansiProvinsi.id}"
 					th:text = "${instansiProvinsi.nama} + ' - ' + ${instansiProvinsi.provinsi.nama}"></option>
-		</select><br>
+		</select><br>-->
 		Jabatan: <br>
 		<div th:each = "j,rowStat : *{jabatanList}">
 			<select name = "jabatanList">
@@ -54,6 +75,26 @@
 		<br>
 		<button type="submit">Submit</button>
 	</form>
+	
+	<script>
+	$('#provinsi').change(
+	        function() {
+	            $.getJSON("http://localhost:8080/provinsi/instansi", {
+	                idProvinsi : $(this).val(),
+	                ajax : 'true'
+	            }, function(data) {
+	                var html = '<option value="">Pilih Instansi</option>';
+	                var len = data.length;
+	                for ( var i = 0; i < len; i++) {
+	                    html += '<option value="' + data[i].id + '">'
+	                            + data[i].nama + '</option>';
+	                }
+	                html += '</option>';
+	                $('#instansi').html(html);
+	            });
+	        });
+	</script>
+	
 </body>
 
 </html>
