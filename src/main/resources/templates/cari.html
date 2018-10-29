@@ -15,38 +15,46 @@
 	<h2>Cari Pegawai</h2>
 
 	<form th:action="@{/pegawai/cari}" th:object="${pegawai}" method="GET">
-
-		<div class="form-group">
-			Provinsi:<br> 
-			<select
-				th:value="${provinsiList}" name="idProvinsi" id="provinsi">
+	
+	<table class="table">
+		<tbody>
+		<tr>
+			<td th:text="'Provinsi'"></td>
+			<td>
+			<select class="form-group" th:value="${provinsiList}" name="idProvinsi" id="provinsi">
 				<option disabled="disabled" selected="selected" >Pilih Provinsi</option>
 				<option th:each="provinsi : ${provinsiList}"
 					th:value="${provinsi.id}"
 					th:text="${provinsi.nama}">
 				</option>
 			</select>
-		</div>
+			</td>
+		</tr>
 
-		<div class="form-group">
-			Instansi:<br> 
-			<select th:value="${instansiList}" name="idInstansi" id="instansi">
+		<tr>
+			<td th:text="'Instansi'"></td> 
+			<td>
+			<select class="form-group" th:value="${instansiList}" name="idInstansi" id="instansi">
 				<option disabled="disabled" selected="selected" >Pilih Instansi</option>
 			</select>
-			
-		</div>
+			</td>
+		</tr>
 
-		<div class="form-group">
-		Jabatan: <br>
-			<select th:value="${jabatanList}" name = "idJabatan">
+		<tr>
+		<td th:text="'Jabatan'"></td> 
+		<td>
+			<select class="form-group"  th:value="${jabatanList}" name = "idJabatan">
 				<option disabled="disabled" selected="selected" >Pilih Jabatan</option>
 	  			<option th:each="jabatan : ${jabatanList}" th:value="${jabatan.id}" th:text="${jabatan.nama}"> </option>		  
 			</select>
-		</div>
+		</td>
+		</tr>
+		</tbody>
 		
-		<button class="btn btn-primary btn-lg active" role="button"
-			aria-pressed="true" type="submit">Cari</button>
+	</table>	
+	<button class="btn btn-primary btn" type="submit">Cari</button>
 	</form>
+	
 	
 	<hr>
 	

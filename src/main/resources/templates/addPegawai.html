@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-	<title>Tambah Jabatan</title>
+	<title>Tambah Pegawai</title>
 	<object th:include="fragments/fragment :: css" th:remove="tag"></object>
 	
 	<meta charset="utf-8">
@@ -13,23 +13,22 @@
 </head>
 
 <body>
-	
 	<nav th:replace="fragments/fragment :: navbar"></nav>
-	<h2>Hello!</h2>
 	
-	<h3>Tambah Pegawai</h3>
+	<div class="container" style="padding-top: 32px;">
+	<h2>Tambah Pegawai</h2>
 	<form th:action="@{/pegawai/tambah}" th:object="${pegawai}" method="POST">
 		Nama: <br>
-		<input type="text" name="nama" th:value="${pegawai.nama}"/>
+		<input class="form-control" type="text" name="nama" th:value="${pegawai.nama}"/>
 		<br>
 		Tempat Lahir: <br>
-		<input type="text" name="tempatLahir" th:value="${pegawai.tempatLahir}"/>
+		<input class="form-control" type="text" name="tempatLahir" th:value="${pegawai.tempatLahir}"/>
 		<br>
 		Tanggal Lahir: <br>
-		<input type="date" name="tanggalLahir" th:value="${pegawai.tanggalLahir}"/>
+		<input class="form-control" type="date" name="tanggalLahir" th:value="${pegawai.tanggalLahir}"/>
 		<br>
 		Tahun Masuk: <br>
-		<input type="number" name="tahunMasuk" th:value="${pegawai.tahunMasuk}"/>
+		<input class="form-control" type="number" name="tahunMasuk" th:value="${pegawai.tahunMasuk}"/>
 		<br>
 		
 		<td th:text="'Provinsi'"></td>
@@ -41,30 +40,31 @@
 				th:text="${provinsi.nama}"></option>
 				</select>
  		</td>
-		
+		<br>
 		<td th:text="'Nama Instansi'"></td>
  		<td>
 			<select th:field="*{instansi}" id="instansi" class="form-control"/>
 				<option disabled="disabled" selected="selected" >Pilih Instansi</option>
 			</select>
  		</td>
-		
+		<br>
 		Jabatan: <br>
 		<div th:each = "j,rowStat : *{jabatanList}">
-			<select name = "jabatanList">
+			<select class="form-control" name = "jabatanList">
 				<option th:each = "jabatan : ${jabatanList}"
 						th:value = "${jabatan.id}"
 						th:field="*{jabatanList[__${rowStat.index}__].id}"
 						th:text = "${jabatan.nama}"></option>
 			</select>
-			<button type="submit" name="removeRow" th:value="${rowStat.index}">Remove Row</button>
+			<button class="btn btn-primary btn" type="submit" name="removeRow" th:value="${rowStat.index}">Remove Row</button>
 			<br><br>
 		</div>
-		<button type="submit" name="addRow">Add Row</button>
+		<button class="btn btn-primary btn" type="submit" name="addRow">Add Row</button>
 		<br>
-		<button type="submit">Submit</button>
+		<br>
+		<button  class="btn btn-primary btn" type="submit">Submit</button>
 	</form>
-	
+	</div>
 	<script type="text/javascript">
 	$(document).ready(function(){
 		console.log("hello")
