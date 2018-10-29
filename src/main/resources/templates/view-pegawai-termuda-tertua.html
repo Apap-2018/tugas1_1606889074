@@ -13,37 +13,93 @@
 	
 	<h2 th:text="'Lihat Data Pegawai - '+ ${pegawaiTermuda.nip}"></h2>
 	<br>
-	<h3 th:text="'NIP: ' + ${pegawaiTermuda.nip}"></h3>
-	<h3 th:text="'Nama: ' + ${pegawaiTermuda.nama}"></h3>
-	<h3 th:text="'Tempat Lahir: ' + ${pegawaiTermuda.tempatLahir}"></h3>
-	<h3 th:text="'Tanggal Lahir: ' + ${pegawaiTermuda.tanggalLahir}"></h3>
-	<h3 th:text="'Tahun Masuk: ' + ${pegawaiTermuda.tahunMasuk}"></h3>
+	<table class="table">
+		<tbody>
+			<tr>
+				<td th:text="'NIP'"></td>
+				<td th:text="${pegawaiTermuda.nip}"></td>
+			</tr>
+			<tr>
+				<td th:text="'Nama'"></td>
+				<td th:text="${pegawaiTermuda.nama}"></td>
+			</tr>
+			<tr>
+				<td th:text="'Tempat Lahir'"></td>
+				<td th:text="${pegawaiTermuda.tempatLahir}"></td>
+			</tr>
+			<tr>
+				<td th:text="'Tanggal Lahir'"></td>
+				<td th:text="${pegawaiTermuda.tanggalLahir}"></td>
+			</tr>
+			<tr>
+				<td th:text="'Tahun Masuk'"></td>
+				<td th:text="${pegawaiTermuda.tahunMasuk}"></td>
+			</tr>
+			<tr>
+				<td th:text="'Nama Instansi'"></td>
+				<td th:text="${pegawaiTermuda.instansi.nama} + ' - ' + ${pegawaiTermuda.instansi.provinsi.nama}"></td>
+			</tr>
+			<tr th:each="jabatan, iterationStat : ${pegawaiTermuda.jabatanList}">
+				<td th:text="${iterationStat.first} ? 'Jabatan'"></td>
+				<td>
+					<ul>
+						<li th:text="${jabatan.nama}"></li>
+					</ul>
+				</td>
+			</tr>
+			<tr>
+				<td th:text="'Gaji'"></td>
+				<td th:text="'Rp' + ${gajiTermuda}"></td>
+			</tr>
+		</tbody>
 	
-	<h3 th:text="'Nama Instansi: ' + ${pegawaiTermuda.instansi.nama} + ' - ' + ${pegawaiTermuda.instansi.provinsi.nama}"></h3>	
-	
-	<h3 th:each="jabatan : ${pegawaiTermuda.jabatanList}">
-		<h3 th:text="${jabatan.nama}"></h3>
-	</h3>
-	
-	<h3 th:text="'Gaji : Rp'+${gajiTermuda}"></h3>
+	</table>
 	
 	<br>
 	
-	<h2 th:text="'Lihat Data Pegawai - '+ ${pegawaiTermuda.nip}"></h2>
+	<h2 th:text="'Lihat Data Pegawai - '+ ${pegawaiTertua.nip}"></h2>
 	<br>
-	<h3 th:text="'NIP: ' + ${pegawaiTertua.nip}"></h3>
-	<h3 th:text="'Nama: ' + ${pegawaiTertua.nama}"></h3>
-	<h3 th:text="'Tempat Lahir: ' + ${pegawaiTertua.tempatLahir}"></h3>
-	<h3 th:text="'Tanggal Lahir: ' + ${pegawaiTertua.tanggalLahir}"></h3>
-	<h3 th:text="'Tahun Masuk: ' + ${pegawaiTertua.tahunMasuk}"></h3>
+	<table class="table">
+		<tbody>
+			<tr>
+				<td th:text="'NIP'"></td>
+				<td th:text="${pegawaiTertua.nip}"></td>
+			</tr>
+			<tr>
+				<td th:text="'Nama'"></td>
+				<td th:text="${pegawaiTertua.nama}"></td>
+			</tr>
+			<tr>
+				<td th:text="'Tempat Lahir'"></td>
+				<td th:text="${pegawaiTertua.tempatLahir}"></td>
+			</tr>
+			<tr>
+				<td th:text="'Tanggal Lahir'"></td>
+				<td th:text="${pegawaiTertua.tanggalLahir}"></td>
+			</tr>
+			<tr>
+				<td th:text="'Tahun Masuk'"></td>
+				<td th:text="${pegawaiTertua.tahunMasuk}"></td>
+			</tr>
+			<tr>
+				<td th:text="'Nama Instansi'"></td>
+				<td th:text="${pegawaiTertua.instansi.nama} + ' - ' + ${pegawaiTertua.instansi.provinsi.nama}"></td>
+			</tr>
+			<tr th:each="jabatan, iterationStat : ${pegawaiTertua.jabatanList}">
+				<td th:text="${iterationStat.first} ? 'Jabatan'"></td>
+				<td>
+					<ul>
+						<li th:text="${jabatan.nama}"></li>
+					</ul>
+				</td>
+			</tr>
+			<tr>
+				<td th:text="'Gaji'"></td>
+				<td th:text="'Rp' + ${gajiTertua}"></td>
+			</tr>
+		</tbody>
 	
-	<h3 th:text="'Nama Instansi: ' + ${pegawaiTertua.instansi.nama} + ' - ' + ${pegawaiTertua.instansi.provinsi.nama}"></h3>	
-	
-	<h3 th:each="jabatan : ${pegawaiTertua.jabatanList}">
-		<h3 th:text="${jabatan.nama}"></h3>
-	</h3>
-	
-	<h3 th:text="'Gaji : Rp'+${gajiTertua}"></h3>
+	</table>
 		
 </body>
 </html>

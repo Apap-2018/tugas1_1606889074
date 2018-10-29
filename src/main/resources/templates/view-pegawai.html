@@ -12,20 +12,47 @@
 	
 	<h2 th:text="'Lihat Data Pegawai - '+ ${pegawai.nip}"></h2>
 	<br>
-	<h3 th:text="'NIP: ' + ${pegawai.nip}"></h3>
-	<h3 th:text="'Nama: ' + ${pegawai.nama}"></h3>
-	<h3 th:text="'Tempat Lahir: ' + ${pegawai.tempatLahir}"></h3>
-	<h3 th:text="'Tanggal Lahir: ' + ${pegawai.tanggalLahir}"></h3>
-	<h3 th:text="'Tahun Masuk: ' + ${pegawai.tahunMasuk}"></h3>
+	<table class="table">
+		<tbody>
+			<tr>
+				<td th:text="'NIP'"></td>
+				<td th:text="${pegawai.nip}"></td>
+			</tr>
+			<tr>
+				<td th:text="'Nama'"></td>
+				<td th:text="${pegawai.nama}"></td>
+			</tr>
+			<tr>
+				<td th:text="'Tempat Lahir'"></td>
+				<td th:text="${pegawai.tempatLahir}"></td>
+			</tr>
+			<tr>
+				<td th:text="'Tanggal Lahir'"></td>
+				<td th:text="${pegawai.tanggalLahir}"></td>
+			</tr>
+			<tr>
+				<td th:text="'Tahun Masuk'"></td>
+				<td th:text="${pegawai.tahunMasuk}"></td>
+			</tr>
+			<tr>
+				<td th:text="'Nama Instansi'"></td>
+				<td th:text="${pegawai.instansi.nama} + ' - ' + ${pegawai.instansi.provinsi.nama}"></td>
+			</tr>
+			<tr th:each="jabatan, iterationStat : ${pegawai.jabatanList}">
+				<td th:text="${iterationStat.first} ? 'Jabatan'"></td>
+				<td>
+					<ul>
+						<li th:text="${jabatan.nama}"></li>
+					</ul>
+				</td>
+			</tr>
+			<tr>
+				<td th:text="'Gaji'"></td>
+				<td th:text="'Rp' + ${gaji}"></td>
+			</tr>
+		</tbody>
 	
-	<h3 th:text="'Nama Instansi: ' + ${pegawai.instansi.nama} + ' - ' + ${pegawai.instansi.provinsi.nama}"></h3>	
-	
-	<h3 th:text="'Jabatan: '"></h3>
-	<h3 th:each="jabatan : ${pegawai.jabatanList}">
-		<h3 th:text="${jabatan.nama}"></h3>
-	</h3>
-	<h3 th:text="'Gaji : Rp'+${gaji}"></h3>
-	<br>
+	</table>
 	<form th:action="@{/pegawai/ubah}" name=getPegawai method = "GET">
 		<input type="hidden" th:value="${pegawai.nip}" name="nip" />
 		<button type = "submit" class = "btn btn-primary"> Ubah Pegawai</button>

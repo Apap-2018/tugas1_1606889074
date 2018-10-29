@@ -10,16 +10,32 @@
 <body>
 	<nav th:replace="fragments/fragment :: navbar"></nav>
 	
-	<h3 th:text="'Nama: ' + ${jabatan.nama}"></h3>
-	<h3 th:text="'Deskripsi: ' + ${jabatan.deskripsi}"></h3>
-	<h3 th:text="'Gaji Pokok: Rp' + ${jabatan.gajiPokok}"></h3>
-	<h3 th:text="'Jumlah Pegawai Jabatan: ' + ${jumlahPegawai}"></h3>
+	<table class="table">
+		<tbody>
+			<tr>
+				<td th:text="'Nama'"></td>
+				<td th:text="${jabatan.nama}"></td>
+			</tr>
+			<tr>
+				<td th:text="'Deskripsi'"></td>
+				<td th:text="${jabatan.deskripsi}"></td>
+			</tr>
+			<tr>
+				<td th:text="'Gaji Pokok'"></td>
+				<td th:text="${jabatan.gajiPokok}"></td>
+			</tr>
+			<tr>
+				<td th:text="'Jumlah Pegawai'"></td>
+				<td th:text="${jabatan.pegawaiList.size()}"></td>
+			</tr>
+		</tbody>		
+	</table>
 	
 	<form th:action="@{/jabatan/ubah}" name=getJabatan method = "GET">
 		<input type="hidden" th:value="${jabatan.id}" name="idJabatan" />
 		<button type = "submit" class = "btn btn-primary"> Ubah Jabatan</button>
 	</form>
-	
+	<br>
 	<form th:action="@{/jabatan/hapus}" th:object="${jabatan}" method="POST">
 		<input type="hidden" th:field="${jabatan.id}" />
 		<button class="btn btn-primary" type="submit"> Hapus Jabatan</button>
