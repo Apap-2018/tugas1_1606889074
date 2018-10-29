@@ -1,5 +1,6 @@
 package com.apap.tugas1.model;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -21,7 +22,7 @@ import javax.validation.constraints.Size;
  */
 @Entity
 @Table(name = "jabatan")
-public class JabatanModel {
+public class JabatanModel implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;

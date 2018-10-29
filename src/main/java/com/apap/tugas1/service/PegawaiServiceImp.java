@@ -1,5 +1,6 @@
 package com.apap.tugas1.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.apap.tugas1.model.InstansiModel;
+import com.apap.tugas1.model.JabatanModel;
 import com.apap.tugas1.model.PegawaiModel;
 import com.apap.tugas1.model.ProvinsiModel;
 import com.apap.tugas1.repository.PegawaiDB;
@@ -68,5 +70,30 @@ public class PegawaiServiceImp implements PegawaiService{
 		else {nip+=jumlahNipAwalSama;}
 		
 		return nip;
+	}
+
+	@Override
+	public List<PegawaiModel> findByInstansiAndJabatanPegawai(InstansiModel instansi, JabatanModel jabatanPegawai) {
+		List<PegawaiModel> listPegawaiByInstansiAndJabatanPegawai = new ArrayList<>();
+		List<PegawaiModel> listPegawaiByInstansi = pegawaiDb.findByInstansi(instansi);
+		
+		for (int i = 0; i < listPegawaiByInstansi.size(); i++) {
+			if (listPegawaiByInstansi.get(i).getJabatanList().contains(jabatanPegawai)) {
+				listPegawaiByInstansiAndJabatanPegawai.add(listPegawaiByInstansi.get(i));
+			}
+		}
+		
+		return listPegawaiByInstansiAndJabatanPegawai;
+	}
+
+	@Override
+	public List<PegawaiModel> getListPegawaiByInstansi(InstansiModel instansi) {
+		// TODO Auto-generated method stub
+		return pegawaiDb.findByInstansi(instansi);
+	}
+
+	@Override
+	public List<PegawaiModel> getListPegawaiByJabatan(List<JabatanModel> jabatanList) {
+		return pegawaiDb.findByJabatanList(jabatanList);
 	}
 }

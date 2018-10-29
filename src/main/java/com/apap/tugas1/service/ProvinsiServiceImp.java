@@ -21,4 +21,11 @@ public class ProvinsiServiceImp implements ProvinsiService{
 		return provinsiDb.findAll();
 	}
 
+	@Override
+	public ProvinsiModel getProvinsiDetailById(long id) {
+		return provinsiDb.findById(id);
+	}
+	
+	
+
 }

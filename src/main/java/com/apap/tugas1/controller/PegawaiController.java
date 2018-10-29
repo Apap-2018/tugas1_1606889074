@@ -118,6 +118,17 @@ public class PegawaiController {
 		return "add";
 	}
 	
+	@RequestMapping(value = "/pegawai/tambah/instansi",method = RequestMethod.GET)
+	private @ResponseBody List<InstansiModel> cekInstansi(@RequestParam(value="provinsiId") long provinsiId) {
+		ProvinsiModel provinsi = provinsiService.getProvinsiDetailById(provinsiId);
+		
+		for(InstansiModel instansi : provinsi.getInstansiList()) {
+			instansi.setPegawaiInstansi(null);
+		}
+		
+		return provinsi.getInstansiList();
+	}
+	
 	@RequestMapping("/pegawai/termuda-tertua")
 	private String viewPegawaiTermudaTertua(@RequestParam(value = "idInstansi") long idInstansi, Model model) {
 		InstansiModel instansi = instansiService.getInstansiDetailById(idInstansi);
@@ -214,7 +225,91 @@ public class PegawaiController {
 	}
 	
 	@RequestMapping("/pegawai/cari")
-	private String cari(Model model) {
+	private String cari(@RequestParam (value = "idProvinsi", required = false) String idProvinsi, 
+			@RequestParam (value = "idInstansi", required = false) String idInstansi,
+			@RequestParam (value = "idJabatan", required = false) String idJabatan,Model model) {
+		
+		if (idProvinsi != null && idInstansi != null && idJabatan != null) {
+			InstansiModel instansi = instansiService.getInstansiDetailById(Long.parseLong(idInstansi));
+			JabatanModel jabatan = jabatanService.getJabatanById(Long.parseLong(idJabatan));
+			List<PegawaiModel> pegawaiList = pegawaiService.findByInstansiAndJabatanPegawai(instansi, jabatan);
+			
+			model.addAttribute("pegawaiList", pegawaiList);
+
+		} else if (idProvinsi != null && idInstansi == null && idJabatan == null) {
+					
+			ProvinsiModel provinsi = provinsiService.getProvinsiDetailById(Long.parseLong(idProvinsi));
+			List<InstansiModel> instansiList = provinsi.getInstansiList();
+			
+			//List<PegawaiModel> pegawaiList = provinsiService.getListPegawai(instansiList);
+			List<PegawaiModel> pegawaiList = new ArrayList<>();
+			for(InstansiModel instansi : instansiList) {
+				for(PegawaiModel pegawai : instansi.getPegawaiInstansi()) {
+					pegawaiList.add(pegawai);
+				}
+			}
+			
+			model.addAttribute("pegawaiList", pegawaiList);
+			
+		} else if (idProvinsi != null && idInstansi != null && idJabatan == null) {
+			
+			InstansiModel instansi = instansiService.getInstansiDetailById(Long.parseLong(idInstansi));
+			List<PegawaiModel> pegawaiList = instansi.getPegawaiInstansi();
+			
+			model.addAttribute("pegawaiList", pegawaiList);
+			
+		} else if (idProvinsi == null && idInstansi == null && idJabatan != null) {
+			
+			JabatanModel jabatan = jabatanService.getJabatanById(Long.parseLong(idJabatan));
+			List<JabatanModel> jabatanList = new ArrayList<>();
+			jabatanList.add(jabatan);
+			
+			List<PegawaiModel> pegawaiList = pegawaiService.getListPegawaiByJabatan(jabatanList);
+			
+			model.addAttribute("pegawaiList", pegawaiList);
+			
+		} else if (idProvinsi != null && idInstansi == null && idJabatan != null) {
+			
+			JabatanModel jabatan = jabatanService.getJabatanById(Long.parseLong(idJabatan));
+
+			ProvinsiModel provinsi = provinsiService.getProvinsiDetailById(Long.parseLong(idProvinsi));
+			List<InstansiModel> instansiList = provinsi.getInstansiList();
+			
+			//List<PegawaiModel> listPegawaiByProvinsi = provinsiService.getListPegawai(listInstansi);
+			List<PegawaiModel> pegawaiListByProvinsi = new ArrayList<>();
+			for(InstansiModel instansi : instansiList) {
+				for(PegawaiModel pegawai : instansi.getPegawaiInstansi()) {
+					pegawaiListByProvinsi.add(pegawai);
+				}
+			}
+			
+			List<PegawaiModel> pegawaiList = new ArrayList<>();
+			for(PegawaiModel pegawai : pegawaiListByProvinsi) {
+				if(pegawai.getJabatanList().contains(jabatan)) {
+					pegawaiList.add(pegawai);
+				}
+			}
+			//List<PegawaiModel> pegawaiList = provinsiService.getListPegawaiByJabatan(listPegawaiByProvinsi, jabatan);
+
+			model.addAttribute("pegawaiList", pegawaiList);
+		
+		} else if (idProvinsi == null && idInstansi != null && idJabatan == null) {
+		
+			InstansiModel instansi = instansiService.getInstansiDetailById(Long.parseLong(idInstansi));
+			List<PegawaiModel> pegawaiList = instansi.getPegawaiInstansi();
+			
+			model.addAttribute("pegawaiList", pegawaiList);
+			
+		} else if (idProvinsi == null && idInstansi != null && idJabatan != null) {
+	
+			InstansiModel instansi = instansiService.getInstansiDetailById(Long.parseLong(idInstansi));
+			JabatanModel jabatan = jabatanService.getJabatanById(Long.parseLong(idJabatan));
+			List<PegawaiModel> pegawaiList = pegawaiService.findByInstansiAndJabatanPegawai(instansi, jabatan);
+			
+			model.addAttribute("pegawaiList", pegawaiList);
+			
+		} 
+		
 		model.addAttribute("provinsiList", provinsiService.getAllProvinsi());
 		model.addAttribute("instansiList", instansiService.getAllInstansi());
 		model.addAttribute("jabatanList", jabatanService.getAllJabatan());

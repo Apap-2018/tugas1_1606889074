@@ -31,7 +31,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Table(name = "instansi")
 public class InstansiModel implements Serializable{
 	@Id
-	@Size(max = 20)
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	
@@ -52,6 +51,7 @@ public class InstansiModel implements Serializable{
 	private ProvinsiModel provinsi;
 	
 	@OneToMany(mappedBy = "instansi", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JsonIgnore
 	private List<PegawaiModel> pegawaiList;
 
 	public long getId() {

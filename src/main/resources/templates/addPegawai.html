@@ -4,7 +4,12 @@
 <head>
 	<title>Tambah Jabatan</title>
 	<object th:include="fragments/fragment :: css" th:remove="tag"></object>
-	<object th:include="fragments/fragment :: js" th:remove="tag"></object>	
+	
+	<meta charset="utf-8">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+	
 </head>
 
 <body>
@@ -26,19 +31,24 @@
 		Tahun Masuk: <br>
 		<input type="number" name="tahunMasuk" th:value="${pegawai.tahunMasuk}"/>
 		<br>
-		<!--  Provinsi: <br>
-		<select name = "provinsi">
-			<option th:each = "provinsi : ${provinsiList}"
-					th:value = "${provinsi.id}"
-					th:text = "${provinsi.nama}"></option>
-		</select>
-		<br>-->
-		Nama Instansi: <br>
-		<select name="instansi" th:value="${pegawai.instansi}">
-			<option th:each = "instansiProvinsi : ${instansiList}"
-					th:value = "${instansiProvinsi.id}"
-					th:text = "${instansiProvinsi.nama} + ' - ' + ${instansiProvinsi.provinsi.nama}"></option>
-		</select><br>
+		
+		<td th:text="'Provinsi'"></td>
+ 		<td>
+				<select id="provinsi" class="form-control"/>
+					<option disabled="disabled" selected="selected" >Pilih Provinsi</option>
+				<option th:each="provinsi : ${provinsiList}"
+				th:value="${provinsi.id}"
+				th:text="${provinsi.nama}"></option>
+				</select>
+ 		</td>
+		
+		<td th:text="'Nama Instansi'"></td>
+ 		<td>
+			<select th:field="*{instansi}" id="instansi" class="form-control"/>
+				<option disabled="disabled" selected="selected" >Pilih Instansi</option>
+			</select>
+ 		</td>
+		
 		Jabatan: <br>
 		<div th:each = "j,rowStat : *{jabatanList}">
 			<select name = "jabatanList">
@@ -54,6 +64,39 @@
 		<br>
 		<button type="submit">Submit</button>
 	</form>
+	
+	<script type="text/javascript">
+	$(document).ready(function(){
+		console.log("hello")
+		$('#provinsi').change(function() {
+			valueProv = $(this).val();
+			$.ajax({
+				type: "GET",
+				url: "http://localhost:8080/pegawai/tambah/instansi?provinsi=",
+				data: {
+					'provinsiId' : valueProv
+				},
+				dataType: 'json',
+				success: function(data) {
+					console.log(data);
+					getIns = '';
+					var size = data.length;
+				
+					for (var i = 0; i<size; i++) {
+						getIns+='<option value="'+data[i].id+'">'+data[i].nama+'</option>';
+						console.log(data[i]);
+						console.log(data[i].nama)
+					}
+					console.log(getIns);
+					$('#instansi').append(getIns);
+				},
+				error: function(rs,e) {
+					alert(rs.responseText)
+				}
+			})
+		})
+	});
+	</script>
 </body>
 
 </html>
