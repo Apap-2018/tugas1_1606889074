@@ -10,12 +10,31 @@
 <body>
 	<nav th:replace="fragments/fragment :: navbar"></nav>
 	
-	<div th:each="jabatan : ${jabatanList}">
-		<h3 th:text="'Nama: ' + ${jabatan.nama}"></h3>
-		<h3 th:text="'Deskripsi: ' + ${jabatan.deskripsi}"></h3>
-		<h3 th:text="'Gaji Pokok: Rp' + ${jabatan.gajiPokok}"></h3>
-		<br>
+	<div class="container-fluid">
+		<h1>Lihat Semua Jabatan</h1>
+        <div class="table">
+        	<table class="table table-hover" id="myTable">
+        		<thead>
+        			<th>Nama</th>
+        			<th>Deskripsi</th>
+        			<th>Gaji Pokok</th>
+        			<th>Jumlah Pegawai</th>
+        		</thead>
+        		<tbody>
+     			<tr  th:each  = "jabatan : ${jabatanList}" >
+     				<td th:text="${jabatan.nama}"></td>
+     				<td th:text="${jabatan.deskripsi}"></td>
+     				<td th:text="${jabatan.gajiPokok}"></td>
+     				<td th:text="${jabatan.pegawaiList.size()}"></td>
+     			</tr>
+     		</tbody>
+        	</table>
 	</div>
+    <script type="text/javascript">
+    	$(document).ready(function(e){
+    		$(myTable).DataTable()
+    	});
+    </script>	
 	
 </body>
 </html>
