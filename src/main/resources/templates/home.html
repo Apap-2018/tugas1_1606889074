@@ -10,6 +10,8 @@
 <body>
 	
 	<nav th:replace="fragments/fragment :: navbar"></nav>
+	
+	
 	<div class="container-fluid">
 		<br>
 		<h2>Selamat Datang di Sistem Informasi Kepegawaian</h2>
@@ -43,11 +45,11 @@
 						<div class="card-body">
 							<label for="nip">Pilih Jabatan:</label>
 								<a th:action="@{/jabatan/view}" method = "GET">
-									<select name = "idJabatan">
+									<select name = "idJabatan" class="form-control">
 										<option th:each = "jabatan : ${jabatanList}"
 												th:value = "${jabatan.id}"
 												th:text = "${jabatan.nama}"></option>
-									</select><br><br>
+									</select><br>
 									<button type = "cari" class = "btn btn-primary">Submit</button>
 								</a>
 							<p></p>
@@ -67,7 +69,7 @@
 						<div class="card-body">
 							<label for="nip">Pilih Instansi:</label>
 								<a th:action="@{/pegawai/termuda-tertua}" method = "GET">
-									<select name="idInstansi">
+									<select name="idInstansi" class="form-control">
 										<option th:each = "instansiProvinsi : ${instansiList}"
 												th:value = "${instansiProvinsi.id}"
 												th:text = "${instansiProvinsi.nama} + ' - ' + ${instansiProvinsi.provinsi.nama}"></option>
